@@ -1,6 +1,5 @@
 module Main exposing (suite)
 
-import Dict
 import Expect exposing (Expectation)
 import Html.Parser exposing (Document, Node(..))
 import Test exposing (Test, describe, test)
