@@ -35,7 +35,8 @@ testError s =
                     Err _ ->
                         True
         in
-        Expect.true s failed
+        Expect.equal True failed
+            |> Expect.onFail s
 
 
 testDocumentError : String -> (() -> Expectation)
@@ -50,7 +51,8 @@ testDocumentError s =
                     Err _ ->
                         True
         in
-        Expect.true s failed
+        Expect.equal True failed
+            |> Expect.onFail s
 
 
 textNodeTests : Test
