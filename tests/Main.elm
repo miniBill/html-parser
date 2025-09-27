@@ -26,33 +26,23 @@ testParseDocument s doc =
 testError : String -> (() -> Expectation)
 testError s =
     \_ ->
-        let
-            failed =
-                case Html.Parser.run s of
-                    Ok _ ->
-                        False
+        case Html.Parser.run s of
+            Ok _ ->
+                Expect.fail s
 
-                    Err _ ->
-                        True
-        in
-        Expect.equal True failed
-            |> Expect.onFail s
+            Err _ ->
+                Expect.pass
 
 
 testDocumentError : String -> (() -> Expectation)
 testDocumentError s =
     \_ ->
-        let
-            failed =
-                case Html.Parser.runDocument s of
-                    Ok _ ->
-                        False
+        case Html.Parser.runDocument s of
+            Ok _ ->
+                Expect.fail s
 
-                    Err _ ->
-                        True
-        in
-        Expect.equal True failed
-            |> Expect.onFail s
+            Err _ ->
+                Expect.pass
 
 
 textNodeTests : Test
