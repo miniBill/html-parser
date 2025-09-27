@@ -20,7 +20,7 @@ you need to parse HTML... This section is for you!
 
 -}
 
-import Dict exposing (Dict)
+import Dict
 import Hex
 import Html.Parser.NamedCharacterReferences as NamedCharacterReferences
 import Parser exposing ((|.), (|=), Parser)
@@ -180,7 +180,7 @@ documentToString doc =
     , List.map commentToString doc.postdocComments
     ]
         |> List.concat
-        |> String.join ""
+        |> String.concat
 
 
 
@@ -194,7 +194,7 @@ text =
         , characterReference
         ]
         |> oneOrMore "text element"
-        |> Parser.map (String.join "" >> Text)
+        |> Parser.map (String.concat >> Text)
 
 
 characterReference : Parser String
@@ -323,7 +323,7 @@ tagAttributeUnquotedValue =
         , characterReference
         ]
         |> oneOrMore "attribute value"
-        |> Parser.map (String.join "")
+        |> Parser.map String.concat
 
 
 tagAttributeQuotedValue : Char -> Parser String
@@ -339,7 +339,7 @@ tagAttributeQuotedValue quote =
                 , characterReference
                 ]
                 |> many
-                |> Parser.map (String.join "")
+                |> Parser.map String.concat
            )
         |. Parser.chompIf ((==) quote)
 
@@ -415,7 +415,7 @@ elementToString name attributes children =
             , name
             , maybeAttributes
             , ">"
-            , String.join "" (List.map nodeToString children)
+            , String.concat (List.map nodeToString children)
             , "</"
             , name
             , ">"
